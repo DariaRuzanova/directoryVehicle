@@ -27,7 +27,7 @@ public class Vehicle {
     @Column(name = "category", nullable = false)
     private char category;
 
-    @Column(name = "state_number", nullable = false,length = 9)
+    @Column(name = "state_number", nullable = false,unique = true,length = 9)
     private String stateNumber;
 
     @Column(name = "year_release", nullable = false,length = 4)
