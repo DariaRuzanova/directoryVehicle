@@ -34,5 +34,6 @@ public class Vehicle {
     private int yearRelease;
 
     @Column(name = "type_transport", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TypeTransport typeTransport;
 }

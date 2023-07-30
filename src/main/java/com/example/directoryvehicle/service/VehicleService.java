@@ -2,6 +2,8 @@ package com.example.directoryvehicle.service;
 
 import com.example.directoryvehicle.DTO.RequestVehicle;
 import com.example.directoryvehicle.entity.Vehicle;
+import com.example.directoryvehicle.exception.ResourceNotFoundException;
+import com.example.directoryvehicle.modele.TypeTransport;
 import com.example.directoryvehicle.repository.VehicleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ public class VehicleService {
     public boolean addVehicle(RequestVehicle requestVehicle) {
         String stateNumber = requestVehicle.getStateNumber();
         boolean flag = true;
-        if (vehicleRepository.findVehicleByStateNumber(stateNumber)!=null) {
+        if (vehicleRepository.findVehicleByStateNumber(stateNumber) != null) {
             flag = false;
             log.error("Транспортное средство с номером {} есть в базе данных", stateNumber);
         }
@@ -87,6 +89,41 @@ public class VehicleService {
         }
         log.warn("ТС с номером {} нет в базе", stateNumber);
         return null;
+    }
+
+    public List<Vehicle> getVehicleByYear(int yearRelease) {
+        List<Vehicle> listVehicleByYear = vehicleRepository.findVehicleByYearRelease(yearRelease);
+        if (listVehicleByYear.isEmpty()) {
+            log.warn("ТС с таким годом выпуска в каталоге нет");
+            return null;
+        }
+        log.info("Выведены Т с годом выпуска {}", yearRelease);
+        return listVehicleByYear;
+    }
+
+    public Vehicle update(Vehicle updateVehicle) {
+        Vehicle existingVehicle = vehicleRepository.findVehicleById(updateVehicle.getId()).orElseThrow(() -> new ResourceNotFoundException("ТС с id " + updateVehicle.getId() + " не найдено"));
+        existingVehicle.setMark(updateVehicle.getMark());
+        existingVehicle.setModel(updateVehicle.getModel());
+        existingVehicle.setCategory(updateVehicle.getCategory());
+        existingVehicle.setStateNumber(updateVehicle.getStateNumber());
+        existingVehicle.setYearRelease(updateVehicle.getYearRelease());
+        TypeTransport typeTransport = updateVehicle.getTypeTransport();
+        TypeTransport.valueOf(String.valueOf(typeTransport));
+        Vehicle updatingVehicle = vehicleRepository.save(existingVehicle);
+        log.info("ТС с id {} успешно обновлено",updatingVehicle.getId());
+        return updateVehicle;
+
+    }
+
+    public boolean deleteVehicle(Long id) {
+        boolean flag = true;
+        if(vehicleRepository.findVehicleById(id).isEmpty()){
+            flag = false;
+        }
+        vehicleRepository.deleteById(id);
+        log.info("ТС с id {} успешно удалено",id);
+        return flag;
     }
 }
 
