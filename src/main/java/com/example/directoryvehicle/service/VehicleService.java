@@ -5,6 +5,7 @@ import com.example.directoryvehicle.entity.Vehicle;
 import com.example.directoryvehicle.exception.ResourceNotFoundException;
 import com.example.directoryvehicle.modele.TypeTransport;
 import com.example.directoryvehicle.repository.VehicleRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Service
 @Slf4j
+
+@AllArgsConstructor
 public class VehicleService {
     private VehicleRepository vehicleRepository;
 
