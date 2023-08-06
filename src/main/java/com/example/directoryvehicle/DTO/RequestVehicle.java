@@ -21,10 +21,10 @@ public class RequestVehicle {
     @NotEmpty
     private String model;
 
-    @NotBlank
+    @NotNull
     private char category;
 
-    @UniqueElements
+//    @UniqueElements
     @NotEmpty
     private String stateNumber;
 
