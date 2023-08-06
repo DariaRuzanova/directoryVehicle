@@ -115,7 +115,7 @@ public class VehicleService {
         TypeTransport.valueOf(String.valueOf(typeTransport));
         Vehicle updatingVehicle = vehicleRepository.save(existingVehicle);
         log.info("ТС с id {} успешно обновлено",updatingVehicle.getId());
-        return updateVehicle;
+        return updatingVehicle;
 
     }
 
