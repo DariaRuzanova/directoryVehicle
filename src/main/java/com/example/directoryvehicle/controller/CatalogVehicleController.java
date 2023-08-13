@@ -39,7 +39,7 @@ public class CatalogVehicleController {
         return ResponseEntity.ok().body(listVehicle);
     }
 
-    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find_by_id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vehicle> getVehiclesById(@PathVariable("id") Long id) {
         return Optional
                 .ofNullable(vehicleService.getVehicleById(id))
@@ -47,7 +47,7 @@ public class CatalogVehicleController {
                 .orElseGet(() -> ResponseEntity.notFound().build()); //404 Not found
     }
 
-    @GetMapping(value = "/find/{mark}")
+    @GetMapping(value = "/find_by_mark/{mark}")
     public ResponseEntity<List<Vehicle>> getVehiclesByMark(@PathVariable("mark") String mark) {
         List<Vehicle> listVehiclesByMark = vehicleService.getVehiclesByMark(mark);
         if (listVehiclesByMark == null) {
@@ -57,7 +57,7 @@ public class CatalogVehicleController {
 
     }
 
-    @GetMapping(value = "/find/{model}")
+    @GetMapping(value = "/find_by_model/{model}")
     public ResponseEntity<List<Vehicle>> getVehiclesByModel(@PathVariable("model") String model) {
         List<Vehicle> listVehiclesByModel = vehicleService.getVehiclesByModel(model);
         if (listVehiclesByModel == null) {
@@ -66,7 +66,7 @@ public class CatalogVehicleController {
         return ResponseEntity.ok().body(listVehiclesByModel);
     }
 
-    @GetMapping(value = "/find/{category}")
+    @GetMapping(value = "/find_by_category/{category}")
     public ResponseEntity<List<Vehicle>> getVehiclesByCategory(@PathVariable("category") char category) {
         List<Vehicle> listVehiclesByCategory = vehicleService.getVehiclesByCategory(category);
         if (listVehiclesByCategory == null) {
@@ -75,7 +75,7 @@ public class CatalogVehicleController {
         return ResponseEntity.ok().body(listVehiclesByCategory);
     }
 
-    @GetMapping(value = "/find/{state_number}")
+    @GetMapping(value = "/find_by_tate_number/{state_number}")
     protected ResponseEntity<Vehicle> getVehiclesByNumber(@PathVariable("state_number") String stateNumber) {
         Vehicle VehiclesByStateNumber = vehicleService.getVehiclesByStateNumber(stateNumber);
         if (VehiclesByStateNumber == null) {
@@ -84,7 +84,7 @@ public class CatalogVehicleController {
         return ResponseEntity.ok().body(VehiclesByStateNumber);
     }
 
-    @GetMapping(value = "/find/{year_release}")
+    @GetMapping(value = "/find_by_year/{year_release}")
     public ResponseEntity<List<Vehicle>> getVehiclesByYear(@PathVariable("year_release") int yearRelease) {
         List<Vehicle> listVehiclesByYear = vehicleService.getVehicleByYear(yearRelease);
         if (listVehiclesByYear == null) {
